@@ -1,4 +1,4 @@
-# gzip-size [![Build Status](https://travis-ci.org/sindresorhus/gzip-size.png?branch=master)](https://travis-ci.org/sindresorhus/gzip-size)
+# gzip-size [![Build Status](https://travis-ci.org/sindresorhus/gzip-size.svg?branch=master)](https://travis-ci.org/sindresorhus/gzip-size)
 
 > Get the gzipped size of a string or buffer
 
@@ -10,10 +10,11 @@ $ npm install --save gzip-size
 ```
 
 
-## Example
+## Usage
 
 ```js
 var gzipSize = require('gzip-size');
+
 var string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 console.log(string.length);
@@ -76,6 +77,7 @@ or with [pretty-bytes](https://github.com/sindresorhus/pretty-bytes):
 $ pretty-bytes $(gzip-size jquery.min.js)
 29.34 kB
 ```
+
 
 ## License
 
