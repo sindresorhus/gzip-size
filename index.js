@@ -4,10 +4,14 @@ var gzipSync = require('zlib-browserify').gzipSync;
 
 module.exports = function (str, cb) {
 	if (!str) {
-		return cb(0);
+		return cb(err, 0);
 	}
 
 	gzip(str, function (err, data) {
+		if (err) {
+			return cb(err, 0);
+		}
+
 		cb(err, data.length);
 	});
 };
