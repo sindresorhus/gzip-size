@@ -18,4 +18,12 @@ describe('gzipSize.sync()', function () {
 	it('should get the gzipped size', function () {
 		assert(gzipSize.sync(a) < a.length);
 	});
+	
+	it('should match async version', function(cb) {
+		gzipSize(a, function (err, size) {
+			assert(!err);
+			assert.equal(gzipSize.sync(a), size);
+			cb();
+		});
+	});
 });

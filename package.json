@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "concat-stream": "^1.4.1",
-    "zlib-browserify": "^0.0.3"
+    "browserify-zlib": "^0.1.4"
   },
   "devDependencies": {
     "mocha": "*"
