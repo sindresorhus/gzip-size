@@ -71,7 +71,7 @@ $ gzip-size --help
 Combine it with [pretty-bytes](https://github.com/sindresorhus/pretty-bytes) to get a human readable output:
 
 ```sh
-$ pretty-bytes $(gzip-size jquery.min.js)
+$ gzip-size jquery.min.js | pretty-bytes
 29.34 kB
 ```
 
