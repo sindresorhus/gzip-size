@@ -34,5 +34,8 @@
   ],
   "devDependencies": {
     "ava": "0.0.4"
+  },
+  "dependencies": {
+    "concat-stream": "^1.4.8"
   }
 }
