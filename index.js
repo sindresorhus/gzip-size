@@ -8,7 +8,7 @@ module.exports = function (str, cb) {
 		return;
 	}
 
-	gzip(str, function (err, data) {
+	gzip(str, {level: 9}, function (err, data) {
 		if (err) {
 			cb(err, 0);
 			return;
@@ -19,5 +19,5 @@ module.exports = function (str, cb) {
 };
 
 module.exports.sync = function (str) {
-	return gzipSync(str).length;
+	return gzipSync(str, {level: 9}).length;
 };
