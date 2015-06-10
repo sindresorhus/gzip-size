@@ -23,7 +23,6 @@
   "keywords": [
     "cli-app",
     "cli",
-    "bin",
     "app",
     "tool",
     "zlib",
@@ -33,11 +32,7 @@
     "string",
     "buffer"
   ],
-  "dependencies": {
-    "concat-stream": "^1.4.1",
-    "browserify-zlib": "^0.1.4"
-  },
   "devDependencies": {
-    "ava": "0.0.3"
+    "ava": "0.0.4"
   }
 }

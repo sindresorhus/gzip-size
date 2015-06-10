@@ -1,6 +1,5 @@
 'use strict';
-var gzip = require('zlib').gzip;
-var gzipSync = require('browserify-zlib').gzipSync;
+var zlib = require('zlib');
 
 module.exports = function (str, cb) {
 	if (!str) {
@@ -8,7 +7,7 @@ module.exports = function (str, cb) {
 		return;
 	}
 
-	gzip(str, {level: 9}, function (err, data) {
+	zlib.gzip(str, {level: 9}, function (err, data) {
 		if (err) {
 			cb(err, 0);
 			return;
@@ -19,5 +18,5 @@ module.exports = function (str, cb) {
 };
 
 module.exports.sync = function (str) {
-	return gzipSync(str, {level: 9}).length;
+	return zlib.gzipSync(str, {level: 9}).length;
 };
