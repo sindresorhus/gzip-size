@@ -3,45 +3,32 @@
 var fs = require('fs');
 var zlib = require('zlib');
 var concat = require('concat-stream');
-var pkg = require('./package.json');
-var argv = process.argv.slice(2);
-var input = argv[0];
+var meow = require('meow');
 
-function help() {
-	console.log([
+var cli = meow({
+	help: [
+		'Usage',
+		'  $ gzip-size <file>',
+		'  $ cat <file> | gzip-size',
 		'',
-		'  ' + pkg.description,
-		'',
-		'  Usage',
-		'    gzip-size <file>',
-		'    cat <file> | gzip-size',
-		'',
-		'  Example',
-		'    gzip-size index.js',
-		'    211'
-	].join('\n'));
-}
+		'Example',
+		'  $ gzip-size index.js',
+		'  211'
+	]
+});
+
+var input = cli.input[0];
 
 function report(data) {
 	console.log(data.length);
 }
 
-if (argv.indexOf('--help') !== -1) {
-	help();
-	return;
+if (!input && process.stdin.isTTY) {
+	console.error('Expected a filename');
+	process.exit(1);
 }
 
-if (argv.indexOf('--version') !== -1) {
-	console.log(pkg.version);
-	return;
-}
-
-if (process.stdin.isTTY) {
-	if (!input) {
-		help();
-		return;
-	}
-
+if (input) {
 	fs.createReadStream(input).pipe(zlib.createGzip()).pipe(concat(report));
 } else {
 	process.stdin.pipe(zlib.createGzip()).pipe(concat(report));

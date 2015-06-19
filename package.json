@@ -33,7 +33,8 @@
     "buffer"
   ],
   "dependencies": {
-    "concat-stream": "^1.4.10"
+    "concat-stream": "^1.4.10",
+    "meow": "^3.3.0"
   },
   "devDependencies": {
     "ava": "0.0.4"

@@ -58,11 +58,11 @@ $ npm install --global gzip-size
 $ gzip-size --help
 
   Usage
-    gzip-size <file>
-    cat <file> | gzip-size
+    $ gzip-size <file>
+    $ cat <file> | gzip-size
 
   Example
-    gzip-size index.js
+    $ gzip-size index.js
     211
 ```
 
