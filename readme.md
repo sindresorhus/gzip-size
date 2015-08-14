@@ -47,6 +47,9 @@ Returns the size.
 *Required*  
 Type: `string`, `buffer`  
 
+### gzipSize.stream()
+
+Returns a passthrough stream. The stream emits a `gzip-size` event and has a `gzipSize` property.
 
 ## CLI
 
