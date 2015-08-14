@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 var fs = require('fs');
-var zlib = require('zlib');
-var concat = require('concat-stream');
+var gzipSize = require('./');
 var meow = require('meow');
 
 var cli = meow({
@@ -19,17 +18,12 @@ var cli = meow({
 
 var input = cli.input[0];
 
-function report(data) {
-	console.log(data.length);
-}
-
 if (!input && process.stdin.isTTY) {
 	console.error('Expected a filename');
 	process.exit(1);
 }
 
-if (input) {
-	fs.createReadStream(input).pipe(zlib.createGzip()).pipe(concat(report));
-} else {
-	process.stdin.pipe(zlib.createGzip()).pipe(concat(report));
-}
+var source = input ? fs.createReadStream(input) : process.stdin;
+source.pipe(gzipSize.stream()).on('gzip-size', function (size) {
+	console.log(size);
+});
