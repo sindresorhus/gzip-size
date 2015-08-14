@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 var tap = require('tap');
@@ -55,7 +56,9 @@ tap.test('passthrough', function (t) {
 	var out = '';
 	fs.createReadStream('test.js')
 		.pipe(gzipSize.stream())
-		.on('data', function (buf) { out += buf; })
+		.on('data', function (buf) {
+			out += buf;
+		})
 		.on('end', function () {
 			t.equal(out, a);
 		});
@@ -64,16 +67,18 @@ tap.test('passthrough', function (t) {
 tap.test('cli - stream', function (t) {
 	t.plan(3);
 
-	var ps = spawn(process.execPath, [
-		__dirname + '/cli.js'
-	]);
+	var ps = spawn(process.execPath, [path.join(__dirname, 'cli.js')]);
 
 	fs.createReadStream('test.js').pipe(ps.stdin);
 
 	var out = '';
 	var err = '';
-	ps.stdout.on('data', function (buf) { out += buf; });
-	ps.stderr.on('data', function (buf) { err += buf; });
+	ps.stdout.on('data', function (buf) {
+		out += buf;
+	});
+	ps.stderr.on('data', function (buf) {
+		err += buf;
+	});
 
 	ps.on('exit', function (code) {
 		t.notOk(err);
@@ -85,15 +90,16 @@ tap.test('cli - stream', function (t) {
 tap.test('cli - file', function (t) {
 	t.plan(3);
 
-	var ps = spawn(process.execPath, [
-		__dirname + '/cli.js',
-		'test.js'
-	]);
+	var ps = spawn(process.execPath, [path.join(__dirname, 'cli.js'), 'test.js']);
 
 	var out = '';
 	var err = '';
-	ps.stdout.on('data', function (buf) { out += buf; });
-	ps.stderr.on('data', function (buf) { err += buf; });
+	ps.stdout.on('data', function (buf) {
+		out += buf;
+	});
+	ps.stderr.on('data', function (buf) {
+		err += buf;
+	});
 
 	ps.on('exit', function (code) {
 		t.notOk(err);
