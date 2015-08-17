@@ -1,7 +1,5 @@
 'use strict';
-var path = require('path');
 var fs = require('fs');
-var spawn = require('child_process').spawn;
 var tap = require('tap');
 var gzipSize = require('./');
 var a = fs.readFileSync('test.js', 'utf8');
@@ -62,48 +60,4 @@ tap.test('passthrough', function (t) {
 		.on('end', function () {
 			t.equal(out, a);
 		});
-});
-
-tap.test('cli - stream', function (t) {
-	t.plan(3);
-
-	var ps = spawn(process.execPath, [path.join(__dirname, 'cli.js')]);
-
-	fs.createReadStream('test.js').pipe(ps.stdin);
-
-	var out = '';
-	var err = '';
-	ps.stdout.on('data', function (buf) {
-		out += buf;
-	});
-	ps.stderr.on('data', function (buf) {
-		err += buf;
-	});
-
-	ps.on('exit', function (code) {
-		t.notOk(err);
-		t.equal(code, 0);
-		t.same(out, gzipSize.sync(a));
-	});
-});
-
-tap.test('cli - file', function (t) {
-	t.plan(3);
-
-	var ps = spawn(process.execPath, [path.join(__dirname, 'cli.js'), 'test.js']);
-
-	var out = '';
-	var err = '';
-	ps.stdout.on('data', function (buf) {
-		out += buf;
-	});
-	ps.stderr.on('data', function (buf) {
-		err += buf;
-	});
-
-	ps.on('exit', function (code) {
-		t.notOk(err);
-		t.equal(code, 0);
-		t.same(out, gzipSize.sync(a));
-	});
 });

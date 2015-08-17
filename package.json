@@ -9,7 +9,6 @@
     "email": "sindresorhus@gmail.com",
     "url": "sindresorhus.com"
   },
-  "bin": "cli.js",
   "engines": {
     "node": ">=0.12.0"
   },
@@ -17,12 +16,9 @@
     "test": "xo && tap test.js"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "index.js"
   ],
   "keywords": [
-    "cli-app",
-    "cli",
     "app",
     "tool",
     "zlib",
@@ -33,8 +29,7 @@
     "buffer"
   ],
   "dependencies": {
-    "duplexer": "^0.1.1",
-    "meow": "^3.3.0"
+    "duplexer": "^0.1.1"
   },
   "devDependencies": {
     "tap": "^1.3.2",

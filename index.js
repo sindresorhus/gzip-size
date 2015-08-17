@@ -2,7 +2,6 @@
 var duplexer = require('duplexer');
 var stream = require('stream');
 var zlib = require('zlib');
-
 var opts = {level: 9};
 
 module.exports = function (str, cb) {
@@ -19,6 +18,10 @@ module.exports = function (str, cb) {
 
 		cb(err, data.length);
 	});
+};
+
+module.exports.sync = function (str) {
+	return zlib.gzipSync(str, opts).length;
 };
 
 module.exports.stream = function () {
@@ -44,8 +47,4 @@ module.exports.stream = function () {
 	input.pipe(output, {end: false});
 
 	return wrapper;
-};
-
-module.exports.sync = function (str) {
-	return zlib.gzipSync(str, opts).length;
 };
