@@ -1,63 +1,63 @@
-'use strict';
-var fs = require('fs');
-var tap = require('tap');
-var gzipSize = require('./');
-var a = fs.readFileSync('test.js', 'utf8');
+import fs from 'fs';
+import test from 'ava';
+import fn from './';
 
-tap.test('get the gzipped size', function (t) {
+const a = fs.readFileSync('test.js', 'utf8');
+
+test('get the gzipped size', t => {
 	t.plan(2);
 
-	gzipSize(a, function (err, size) {
-		t.assert(!err);
-		t.assert(size < a.length);
+	fn(a, (err, size) => {
+		t.ifError(err);
+		t.true(size < a.length);
 	});
 });
 
-tap.test('sync - get the gzipped size', function (t) {
+test('sync - get the gzipped size', t => {
 	t.plan(1);
-
-	t.assert(gzipSize.sync(a) < a.length);
+	t.true(fn.sync(a) < a.length);
 });
 
-tap.test('sync - match async version', function (t) {
+test('sync - match async version', t => {
 	t.plan(2);
 
-	gzipSize(a, function (err, size) {
-		t.assert(!err);
-		t.assert(gzipSize.sync(a) === size);
+	fn(a, (err, size) => {
+		t.ifError(err);
+		t.is(fn.sync(a), size);
 	});
 });
 
-tap.test('stream', function (t) {
+test('stream', t => {
 	t.plan(1);
 
 	fs.createReadStream('test.js')
-		.pipe(gzipSize.stream())
+		.pipe(fn.stream())
 		.on('end', function () {
-			t.equal(this.gzipSize, gzipSize.sync(a));
+			t.is(this.gzipSize, fn.sync(a));
 		});
 });
 
-tap.test('gzip-size event', function (t) {
+test('gzip-size event', t => {
 	t.plan(1);
 
 	fs.createReadStream('test.js')
-		.pipe(gzipSize.stream())
-		.on('gzip-size', function (size) {
-			t.equal(size, gzipSize.sync(a));
+		.pipe(fn.stream())
+		.on('gzip-size', size => {
+			t.is(size, fn.sync(a));
 		});
 });
 
-tap.test('passthrough', function (t) {
+test('passthrough', t => {
 	t.plan(1);
 
-	var out = '';
+	let out = '';
+
 	fs.createReadStream('test.js')
-		.pipe(gzipSize.stream())
-		.on('data', function (buf) {
+		.pipe(fn.stream())
+		.on('data', buf => {
 			out += buf;
 		})
-		.on('end', function () {
-			t.equal(out, a);
+		.on('end', () => {
+			t.is(out, a);
 		});
 });
