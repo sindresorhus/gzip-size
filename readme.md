@@ -26,18 +26,24 @@ console.log(gzipSize.sync(string));
 
 ## API
 
-### gzipSize(input, callback)
-### gzipSize.sync(input)
+### gzipSize(input, callback, options)
+### gzipSize.sync(input, options)
 
 #### input
 
 Type: `string`, `buffer`
 
+#### options
+
+Type: `object`
+
+[List of options](https://nodejs.org/api/zlib.html#zlib_class_options)
+
 #### callback(error, size)
 
 Type: `function`
 
-### gzipSize.stream()
+### gzipSize.stream(options)
 
 Returns a passthrough stream. The stream emits a `gzip-size` event and has a `gzipSize` property.
 

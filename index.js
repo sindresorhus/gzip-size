@@ -1,16 +1,22 @@
 'use strict';
-var duplexer = require('duplexer');
 var stream = require('stream');
 var zlib = require('zlib');
-var opts = {level: 9};
 
-module.exports = function (str, cb) {
+var duplexer = require('duplexer');
+
+function getOptions(opts) {
+	return Object.assign({
+		level: 9
+	}, opts);
+}
+
+module.exports = function (str, cb, opts) {
 	if (!str) {
 		cb(null, 0);
 		return;
 	}
 
-	zlib.gzip(str, opts, function (err, data) {
+	zlib.gzip(str, getOptions(opts), function (err, data) {
 		if (err) {
 			cb(err, 0);
 			return;
@@ -20,17 +26,17 @@ module.exports = function (str, cb) {
 	});
 };
 
-module.exports.sync = function (str) {
-	return zlib.gzipSync(str, opts).length;
+module.exports.sync = function (str, opts) {
+	return zlib.gzipSync(str, getOptions(opts)).length;
 };
 
-module.exports.stream = function () {
+module.exports.stream = function (opts) {
 	var input = new stream.PassThrough();
 	var output = new stream.PassThrough();
 	var wrapper = duplexer(input, output);
 
 	var gzipSize = 0;
-	var gzip = zlib.createGzip(opts)
+	var gzip = zlib.createGzip(getOptions(opts))
 		.on('data', function (buf) {
 			gzipSize += buf.length;
 		})

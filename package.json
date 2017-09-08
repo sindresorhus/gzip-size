@@ -18,6 +18,9 @@
   "files": [
     "index.js"
   ],
+  "xo": {
+    "esnext": false
+  },
   "keywords": [
     "app",
     "tool",
