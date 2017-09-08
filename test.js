@@ -1,62 +1,47 @@
 import fs from 'fs';
 import test from 'ava';
+import pEvent from 'p-event';
 import m from '.';
 
-const a = fs.readFileSync('test.js', 'utf8');
+const fixture = fs.readFileSync('test.js', 'utf8');
 
-test.cb('get the gzipped size', t => {
-	m(a, (err, size) => {
-		t.ifError(err);
-		t.true(size < a.length);
-		t.end();
-	});
+test('get the gzipped size', async t => {
+	t.true(await m(fixture) < fixture.length);
 });
 
 test('sync - get the gzipped size', t => {
-	t.plan(1);
-	t.true(m.sync(a) < a.length);
+	t.true(m.sync(fixture) < fixture.length);
 });
 
-test.cb('sync - match async version', t => {
-	m(a, (err, size) => {
-		t.ifError(err);
-		t.is(m.sync(a), size);
-		t.end();
-	});
+test('sync - match async version', async t => {
+	t.is(m.sync(fixture), await m(fixture));
 });
 
 test('gzip compression level', t => {
-	t.true(m.sync(a, {level: 6}) <= m.sync(a, {level: 1}));
+	t.true(m.sync(fixture, {level: 6}) < m.sync(fixture, {level: 1}));
 });
 
-test.cb('stream', t => {
-	fs.createReadStream('test.js')
-		.pipe(m.stream())
-		.on('end', function () {
-			t.is(this.gzipSize, m.sync(a));
-			t.end();
-		});
+test('stream', async t => {
+	const stream = fs.createReadStream('test.js').pipe(m.stream());
+	await pEvent(stream, 'end');
+	t.is(stream.gzipSize, m.sync(fixture));
 });
 
-test.cb('gzip-size event', t => {
-	fs.createReadStream('test.js')
-		.pipe(m.stream())
-		.on('gzip-size', size => {
-			t.is(size, m.sync(a));
-			t.end();
-		});
+test('gzip-size event', async t => {
+	const stream = fs.createReadStream('test.js').pipe(m.stream());
+	const size = await pEvent(stream, 'gzip-size');
+	t.is(size, m.sync(fixture));
 });
 
-test.cb('passthrough', t => {
+test('passthrough', async t => {
 	let out = '';
 
-	fs.createReadStream('test.js')
+	const stream = fs.createReadStream('test.js')
 		.pipe(m.stream())
 		.on('data', buf => {
 			out += buf;
-		})
-		.on('end', () => {
-			t.is(out, a);
-			t.end();
 		});
+
+	await pEvent(stream, 'end');
+	t.is(out, fixture);
 });

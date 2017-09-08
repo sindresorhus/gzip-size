@@ -14,20 +14,25 @@ $ npm install gzip-size
 
 ```js
 cosnt gzipSize = require('gzip-size');
-const string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
+const text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
-console.log(string.length);
+console.log(text.length);
 //=> 191
 
-console.log(gzipSize.sync(string));
+console.log(gzipSize.sync(text));
 //=> 78
 ```
 
 
 ## API
 
-### gzipSize(input, callback, options)
+### gzipSize(input, options)
+
+Returns a `Promise` for the size.
+
 ### gzipSize.sync(input, options)
+
+Returns the size.
 
 #### input
 
@@ -37,11 +42,7 @@ Type: `string` `Buffer`
 
 Type: `Object`
 
-[List of options](https://nodejs.org/api/zlib.html#zlib_class_options)
-
-#### callback(error, size)
-
-Type: `Function`
+Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
 ### gzipSize.stream(options)
 

@@ -2,23 +2,18 @@
 const stream = require('stream');
 const zlib = require('zlib');
 const duplexer = require('duplexer');
+const pify = require('pify');
 
 const getOptions = options => Object.assign({level: 9}, options);
 
 module.exports = (input, cb, options) => {
 	if (!input) {
-		cb(null, 0);
-		return;
+		return Promise.resolve(0);
 	}
 
-	zlib.gzip(input, getOptions(options), (err, data) => {
-		if (err) {
-			cb(err, 0);
-			return;
-		}
-
-		cb(err, data.length);
-	});
+	// TODO: Remove below comment when new XO release is out
+	// eslint-disable-next-line no-unused-vars, unicorn/catch-error-name
+	return pify(zlib.gzip)(input, getOptions(options)).then(data => data.length).catch(_ => 0);
 };
 
 module.exports.sync = (input, options) => zlib.gzipSync(input, getOptions(options)).length;
