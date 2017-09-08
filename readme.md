@@ -6,15 +6,15 @@
 ## Install
 
 ```
-$ npm install --save gzip-size
+$ npm install gzip-size
 ```
 
 
 ## Usage
 
 ```js
-var gzipSize = require('gzip-size');
-var string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
+cosnt gzipSize = require('gzip-size');
+const string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 console.log(string.length);
 //=> 191
@@ -31,21 +31,21 @@ console.log(gzipSize.sync(string));
 
 #### input
 
-Type: `string`, `buffer`
+Type: `string` `Buffer`
 
 #### options
 
-Type: `object`
+Type: `Object`
 
 [List of options](https://nodejs.org/api/zlib.html#zlib_class_options)
 
 #### callback(error, size)
 
-Type: `function`
+Type: `Function`
 
 ### gzipSize.stream(options)
 
-Returns a passthrough stream. The stream emits a `gzip-size` event and has a `gzipSize` property.
+Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class_stream_passthrough). The stream emits a `gzip-size` event and has a `gzipSize` property.
 
 
 ## Related
@@ -55,4 +55,4 @@ Returns a passthrough stream. The stream emits a `gzip-size` event and has a `gz
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)

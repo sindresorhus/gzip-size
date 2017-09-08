@@ -1,6 +1,6 @@
 import fs from 'fs';
 import test from 'ava';
-import m from './';
+import m from '.';
 
 const a = fs.readFileSync('test.js', 'utf8');
 
