@@ -6,7 +6,7 @@ const pify = require('pify');
 
 const getOptions = options => Object.assign({level: 9}, options);
 
-module.exports = (input, cb, options) => {
+module.exports = (input, options) => {
 	if (!input) {
 		return Promise.resolve(0);
 	}
