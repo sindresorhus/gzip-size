@@ -45,3 +45,11 @@ test('passthrough', async t => {
 	await pEvent(stream, 'end');
 	t.is(out, fixture);
 });
+
+test('file - get the gzipped size', async t => {
+	t.true(await m.file('test.js') < fixture.length);
+});
+
+test('file - match async version', async t => {
+	t.is(await m.file('test.js'), await m(fixture));
+});
