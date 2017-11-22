@@ -26,11 +26,11 @@ console.log(gzipSize.sync(text));
 
 ## API
 
-### gzipSize(input, options)
+### gzipSize(input, [options])
 
 Returns a `Promise` for the size.
 
-### gzipSize.sync(input, options)
+### gzipSize.sync(input, [options])
 
 Returns the size.
 
@@ -44,11 +44,11 @@ Type: `Object`
 
 Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
-### gzipSize.stream(options)
+### gzipSize.stream([options])
 
 Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class_stream_passthrough). The stream emits a `gzip-size` event and has a `gzipSize` property.
 
-### gzipSize.file(path, options)
+### gzipSize.file(path, [options])
 
 Returns a `Promise` for the size of the file.
 
