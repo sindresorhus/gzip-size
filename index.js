@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 const stream = require('stream');
 const zlib = require('zlib');
 const duplexer = require('duplexer');
@@ -41,4 +42,15 @@ module.exports.stream = options => {
 	input.pipe(output, {end: false});
 
 	return wrapper;
+};
+
+module.exports.file = (path, options) => {
+	return new Promise((resolve, reject) => {
+		const stream = fs.createReadStream(path);
+		stream.on('error', reject);
+
+		const gzipStream = stream.pipe(module.exports.stream(options));
+		gzipStream.on('error', reject);
+		gzipStream.on('gzip-size', resolve);
+	});
 };

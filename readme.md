@@ -48,6 +48,14 @@ Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
 Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class_stream_passthrough). The stream emits a `gzip-size` event and has a `gzipSize` property.
 
+### gzipSize.file(path, options)
+
+Returns a `Promise` for the size of the file.
+
+#### path
+
+Type: `string`
+
 
 ## Related
 
