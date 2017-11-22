@@ -9,6 +9,10 @@ test('get the gzipped size', async t => {
 	t.true(await m(fixture) < fixture.length);
 });
 
+test('gzip compression level', async t => {
+	t.true(await m(fixture, {level: 6}) < await m(fixture, {level: 1}));
+});
+
 test('sync - get the gzipped size', t => {
 	t.true(m.sync(fixture) < fixture.length);
 });
@@ -17,7 +21,7 @@ test('sync - match async version', async t => {
 	t.is(m.sync(fixture), await m(fixture));
 });
 
-test('gzip compression level', t => {
+test('sync - gzip compression level', t => {
 	t.true(m.sync(fixture, {level: 6}) < m.sync(fixture, {level: 1}));
 });
 
