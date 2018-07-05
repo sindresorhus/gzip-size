@@ -42,8 +42,8 @@ test('passthrough', async t => {
 
 	const stream = fs.createReadStream('test.js')
 		.pipe(m.stream())
-		.on('data', buf => {
-			out += buf;
+		.on('data', buffer => {
+			out += buffer;
 		});
 
 	await pEvent(stream, 'end');

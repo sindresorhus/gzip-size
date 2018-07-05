@@ -12,8 +12,6 @@ module.exports = (input, options) => {
 		return Promise.resolve(0);
 	}
 
-	// TODO: Remove below comment when new XO release is out
-	// eslint-disable-next-line no-unused-vars, unicorn/catch-error-name
 	return pify(zlib.gzip)(input, getOptions(options)).then(data => data.length).catch(_ => 0);
 };
 
@@ -55,7 +53,4 @@ module.exports.file = (path, options) => {
 	});
 };
 
-module.exports.fileSync = (path, options) => {
-	const data = fs.readFileSync(path);
-	return module.exports.sync(data, options);
-};
+module.exports.fileSync = (path, options) => module.exports.sync(fs.readFileSync(path), options);
