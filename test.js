@@ -54,6 +54,10 @@ test('file - get the gzipped size', async t => {
 	t.true(await m.file('test.js') < fixture.length);
 });
 
+test('fileSync - get the gzipped size', t => {
+	t.is(m.fileSync('test.js'), m.sync(fixture));
+});
+
 test('file - match async version', async t => {
 	t.is(await m.file('test.js'), await m(fixture));
 });

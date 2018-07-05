@@ -56,6 +56,10 @@ Returns a `Promise` for the size of the file.
 
 Type: `string`
 
+### gzipSize.fileSync(path, [options])
+
+Returns the size of the file.
+
 
 ## Related
 
