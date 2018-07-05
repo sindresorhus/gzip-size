@@ -54,3 +54,8 @@ module.exports.file = (path, options) => {
 		gzipStream.on('gzip-size', resolve);
 	});
 };
+
+module.exports.fileSync = (path, options) => {
+	const data = fs.readFileSync(path);
+	return module.exports.sync(data, options);
+};
