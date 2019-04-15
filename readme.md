@@ -14,6 +14,7 @@ $ npm install gzip-size
 
 ```js
 const gzipSize = require('gzip-size');
+
 const text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.';
 
 console.log(text.length);
