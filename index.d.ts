@@ -86,7 +86,7 @@ declare const gzipSize: {
 	file(path: string, options?: gzipSize.Options): Promise<number>;
 
 	/**
-	Get the gzipped size of a file.
+	Synchronously get the gzipped size of a file.
 
 	@returns The size of the file.
 	*/
