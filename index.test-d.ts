@@ -14,3 +14,5 @@ const gstream = fs
 expectType<number | undefined>(gstream.gzipSize);
 expectType<Promise<number>>(gzipSize.file('index.d.ts'));
 expectType<Promise<number>>(gzipSize.file('index.d.ts', {chunkSize: 1}));
+expectType<number>(gzipSize.fileSync('index.d.ts'));
+expectType<number>(gzipSize.fileSync('index.d.ts', {chunkSize: 1}));

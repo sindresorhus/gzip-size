@@ -84,6 +84,13 @@ declare const gzipSize: {
 	@returns The size of the file.
 	*/
 	file(path: string, options?: gzipSize.Options): Promise<number>;
+
+	/**
+	Synchronously get the gzipped size of a file.
+
+	@returns The size of the file.
+	*/
+	fileSync(path: string, options?: gzipSize.Options): number;
 };
 
 export = gzipSize;
