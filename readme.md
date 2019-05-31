@@ -27,21 +27,21 @@ console.log(gzipSize.sync(text));
 
 ## API
 
-### gzipSize(input, [options])
+### gzipSize(input, options?)
 
-Returns a `Promise` for the size.
+Returns a `Promise<number>` with the size.
 
-### gzipSize.sync(input, [options])
+### gzipSize.sync(input, options?)
 
 Returns the size.
 
 #### input
 
-Type: `string` `Buffer`
+Type: `string | Buffer`
 
 #### options
 
-Type: `Object`
+Type: `object`
 
 Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
@@ -49,15 +49,15 @@ Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
 Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class_stream_passthrough). The stream emits a `gzip-size` event and has a `gzipSize` property.
 
-### gzipSize.file(path, [options])
+### gzipSize.file(path, options?)
 
-Returns a `Promise` for the size of the file.
+Returns a `Promise<number>` with the size of the file.
 
 #### path
 
 Type: `string`
 
-### gzipSize.fileSync(path, [options])
+### gzipSize.fileSync(path, options?)
 
 Returns the size of the file.
 
@@ -67,6 +67,14 @@ Returns the size of the file.
 - [gzip-size-cli](https://github.com/sindresorhus/gzip-size-cli) - CLI for this module
 
 
-## License
+---
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-gzip-size?utm_source=npm-gzip-size&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
