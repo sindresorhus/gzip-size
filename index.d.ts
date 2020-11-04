@@ -6,6 +6,11 @@ declare namespace gzipSize {
 	type Options = ZlibOptions;
 
 	interface GzipSizeStream extends stream.PassThrough {
+		/**
+		Contains the gzip size of the stream after it is finished. Since this happens asynchronously, it is recommended you use the `gzip-size` event instead.
+		*/
+		gzipSize?: number;
+
 		addListener(event: 'gzip-size', listener: (size: number) => void): this;
 		addListener(
 			event: string | symbol,
@@ -37,11 +42,6 @@ declare namespace gzipSize {
 			event: string | symbol,
 			listener: (...args: any[]) => void
 		): this;
-
-		/**
-		Contains the gzip size of the stream after it is finished. Since this happens asynchronously, it is recommended you use the `gzip-size` event instead.
-		*/
-		gzipSize?: number;
 	}
 }
 
