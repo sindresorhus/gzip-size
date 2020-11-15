@@ -6,13 +6,14 @@ const {promisify} = require('util');
 const duplexer = require('duplexer');
 
 const getOptions = options => ({level: 9, ...options});
+const gzip = promisify(zlib.gzip);
 
 module.exports = async (input, options) => {
 	if (!input) {
 		return 0;
 	}
 
-	const data = await promisify(zlib.gzip)(input, getOptions(options));
+	const data = await gzip(input, getOptions(options));
 	return data.length;
 };
 
