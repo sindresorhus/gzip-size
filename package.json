@@ -10,7 +10,7 @@
 		"url": "sindresorhus.com"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">=10"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -30,13 +30,12 @@
 		"buffer"
 	],
 	"dependencies": {
-		"duplexer": "^0.1.1",
-		"pify": "^4.0.1"
+		"duplexer": "^0.1.1"
 	},
 	"devDependencies": {
-		"ava": "^1.4.1",
-		"p-event": "^2.1.0",
-		"tsd": "^0.7.2",
-		"xo": "^0.24.0"
+		"ava": "^2.4.0",
+		"p-event": "^4.2.0",
+		"tsd": "^0.13.1",
+		"xo": "^0.34.2"
 	}
 }

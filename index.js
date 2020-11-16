@@ -2,17 +2,19 @@
 const fs = require('fs');
 const stream = require('stream');
 const zlib = require('zlib');
+const {promisify} = require('util');
 const duplexer = require('duplexer');
-const pify = require('pify');
 
-const getOptions = options => Object.assign({level: 9}, options);
+const getOptions = options => ({level: 9, ...options});
+const gzip = promisify(zlib.gzip);
 
-module.exports = (input, options) => {
+module.exports = async (input, options) => {
 	if (!input) {
-		return Promise.resolve(0);
+		return 0;
 	}
 
-	return pify(zlib.gzip)(input, getOptions(options)).then(data => data.length).catch(_ => 0);
+	const data = await gzip(input, getOptions(options));
+	return data.length;
 };
 
 module.exports.sync = (input, options) => zlib.gzipSync(input, getOptions(options)).length;
