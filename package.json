@@ -4,10 +4,11 @@
 	"description": "Get the gzipped size of a string or buffer",
 	"license": "MIT",
 	"repository": "sindresorhus/gzip-size",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"url": "https://sindresorhus.com"
 	},
 	"engines": {
 		"node": ">=10"
@@ -30,7 +31,7 @@
 		"buffer"
 	],
 	"dependencies": {
-		"duplexer": "^0.1.1"
+		"duplexer": "^0.1.2"
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",

@@ -1,14 +1,12 @@
-# gzip-size [![Build Status](https://travis-ci.org/sindresorhus/gzip-size.svg?branch=master)](https://travis-ci.org/sindresorhus/gzip-size)
+# gzip-size [![Build Status](https://travis-ci.com/sindresorhus/gzip-size.svg?branch=master)](https://travis-ci.com/github/sindresorhus/gzip-size)
 
 > Get the gzipped size of a string or buffer
-
 
 ## Install
 
 ```
 $ npm install gzip-size
 ```
-
 
 ## Usage
 
@@ -23,7 +21,6 @@ console.log(text.length);
 console.log(gzipSize.sync(text));
 //=> 78
 ```
-
 
 ## API
 
@@ -45,7 +42,7 @@ Type: `object`
 
 Any [`zlib` option](https://nodejs.org/api/zlib.html#zlib_class_options).
 
-### gzipSize.stream([options])
+### gzipSize.stream(options?)
 
 Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class_stream_passthrough). The stream emits a `gzip-size` event and has a `gzipSize` property.
 
@@ -61,11 +58,9 @@ Type: `string`
 
 Returns the size of the file.
 
-
 ## Related
 
 - [gzip-size-cli](https://github.com/sindresorhus/gzip-size-cli) - CLI for this module
-
 
 ---
 
