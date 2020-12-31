@@ -1,4 +1,4 @@
-# gzip-size [![Build Status](https://travis-ci.com/sindresorhus/gzip-size.svg?branch=master)](https://travis-ci.com/github/sindresorhus/gzip-size)
+# gzip-size
 
 > Get the gzipped size of a string or buffer
 
