@@ -1,7 +1,13 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import test from 'ava';
-import pEvent from 'p-event';
-import gzipSize from '.';
+import {pEvent} from 'p-event';
+import {
+	gzipSize,
+	gzipSizeSync,
+	gzipSizeFromFile,
+	gzipSizeFromFileSync,
+	gzipSizeStream,
+} from './index.js';
 
 const fixture = fs.readFileSync('test.js', 'utf8');
 
@@ -14,34 +20,34 @@ test('gzip compression level', async t => {
 });
 
 test('sync - get the gzipped size', t => {
-	t.true(gzipSize.sync(fixture) < fixture.length);
+	t.true(gzipSizeSync(fixture) < fixture.length);
 });
 
 test('sync - match async version', async t => {
-	t.is(gzipSize.sync(fixture), await gzipSize(fixture));
+	t.is(gzipSizeSync(fixture), await gzipSize(fixture));
 });
 
 test('sync - gzip compression level', t => {
-	t.true(gzipSize.sync(fixture, {level: 6}) < gzipSize.sync(fixture, {level: 1}));
+	t.true(gzipSizeSync(fixture, {level: 6}) < gzipSizeSync(fixture, {level: 1}));
 });
 
 test('stream', async t => {
-	const stream = fs.createReadStream('test.js').pipe(gzipSize.stream());
+	const stream = fs.createReadStream('test.js').pipe(gzipSizeStream());
 	await pEvent(stream, 'end');
-	t.is(stream.gzipSize, gzipSize.sync(fixture));
+	t.is(stream.gzipSize, gzipSizeSync(fixture));
 });
 
 test('gzip-size event', async t => {
-	const stream = fs.createReadStream('test.js').pipe(gzipSize.stream());
+	const stream = fs.createReadStream('test.js').pipe(gzipSizeStream());
 	const size = await pEvent(stream, 'gzip-size');
-	t.is(size, gzipSize.sync(fixture));
+	t.is(size, gzipSizeSync(fixture));
 });
 
 test('passthrough', async t => {
 	let out = '';
 
 	const stream = fs.createReadStream('test.js')
-		.pipe(gzipSize.stream())
+		.pipe(gzipSizeStream())
 		.on('data', buffer => {
 			out += buffer;
 		});
@@ -51,13 +57,13 @@ test('passthrough', async t => {
 });
 
 test('file - get the gzipped size', async t => {
-	t.true(await gzipSize.file('test.js') < fixture.length);
+	t.true(await gzipSizeFromFile('test.js') < fixture.length);
 });
 
 test('fileSync - get the gzipped size', t => {
-	t.is(gzipSize.fileSync('test.js'), gzipSize.sync(fixture));
+	t.is(gzipSizeFromFileSync('test.js'), gzipSizeSync(fixture));
 });
 
 test('file - match async version', async t => {
-	t.is(await gzipSize.file('test.js'), await gzipSize(fixture));
+	t.is(await gzipSizeFromFile('test.js'), await gzipSize(fixture));
 });

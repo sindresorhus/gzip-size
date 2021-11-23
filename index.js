@@ -1,25 +1,45 @@
-'use strict';
-const fs = require('fs');
-const stream = require('stream');
-const zlib = require('zlib');
-const {promisify} = require('util');
-const duplexer = require('duplexer');
+import fs from 'node:fs';
+import stream from 'node:stream';
+import zlib from 'node:zlib';
+import {promisify} from 'node:util';
+import duplexer from 'duplexer';
 
 const getOptions = options => ({level: 9, ...options});
 const gzip = promisify(zlib.gzip);
 
-module.exports = async (input, options) => {
+export async function gzipSize(input, options) {
 	if (!input) {
 		return 0;
 	}
 
 	const data = await gzip(input, getOptions(options));
 	return data.length;
-};
+}
 
-module.exports.sync = (input, options) => zlib.gzipSync(input, getOptions(options)).length;
+export function gzipSizeSync(input, options) {
+	return zlib.gzipSync(input, getOptions(options)).length;
+}
 
-module.exports.stream = options => {
+export function gzipSizeFromFile(path, options) {
+	// TODO: Use `stream.pipeline` here.
+
+	return new Promise((resolve, reject) => {
+		const stream = fs.createReadStream(path);
+		stream.on('error', reject);
+
+		const gzipStream = stream.pipe(gzipSizeStream(options));
+		gzipStream.on('error', reject);
+		gzipStream.on('gzip-size', resolve);
+	});
+}
+
+export function gzipSizeFromFileSync(path, options) {
+	return gzipSizeSync(fs.readFileSync(path), options);
+}
+
+export function gzipSizeStream(options) {
+	// TODO: Use `stream.pipeline` here.
+
 	const input = new stream.PassThrough();
 	const output = new stream.PassThrough();
 	const wrapper = duplexer(input, output);
@@ -42,17 +62,4 @@ module.exports.stream = options => {
 	input.pipe(output, {end: false});
 
 	return wrapper;
-};
-
-module.exports.file = (path, options) => {
-	return new Promise((resolve, reject) => {
-		const stream = fs.createReadStream(path);
-		stream.on('error', reject);
-
-		const gzipStream = stream.pipe(module.exports.stream(options));
-		gzipStream.on('error', reject);
-		gzipStream.on('gzip-size', resolve);
-	});
-};
-
-module.exports.fileSync = (path, options) => module.exports.sync(fs.readFileSync(path), options);
+}
