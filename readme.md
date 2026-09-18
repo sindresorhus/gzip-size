@@ -61,15 +61,3 @@ Returns a [`stream.PassThrough`](https://nodejs.org/api/stream.html#stream_class
 ## Related
 
 - [gzip-size-cli](https://github.com/sindresorhus/gzip-size-cli) - CLI for this module
-
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-gzip-size?utm_source=npm-gzip-size&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
